@@ -151,7 +151,8 @@ export default class Form extends Component {
         isLoading: false,
         car_models: [],
         car_generation: [],
-        searchResult: []
+        searchResult: [],
+        filterResult: {}
     }
   
     handlcChangeCarID = (key, val) => this.setState({ 
@@ -258,12 +259,46 @@ export default class Form extends Component {
         axios.get(url)
         .then((data) => {
             this.setState({ 
+                filterResult: data.data.filter,
                 searchResult: data.data.searchResult.items,
                 isLoading: false
             })
         })
         .catch(() => this.setState({ isLoading: false }))
     }    
+
+    calculateAverageAmount = () => {
+        const { searchResult } = this.state;
+        const len = searchResult.length;
+        const amount = len === 0 ? '' : searchResult.reduce((a,b) => {
+            return a + b.buyNowPrice;
+        }, 0);
+        const averageAmount = amount / len
+
+        return Number.isNaN(averageAmount) ? '' : Number(averageAmount).toFixed(0);
+    }
+
+    renderResult = () => {
+        const { searchResult, filterResult } = this.state;
+
+        if (searchResult.length === 0 || !filterResult.make || !filterResult.model || !filterResult.generation) return null;
+
+        const averageAmount = this.calculateAverageAmount();
+
+        if (averageAmount === '' || !averageAmount) return null;
+
+        const {
+            make,
+            model,
+            generation
+        } = filterResult;
+        
+        const res = `${make.text} ${model.text} (${generation.text}) - ${String(averageAmount)} руб.`
+
+        return (
+            <p>{res}</p>
+        )
+    }
 
     render() {
         const { 
@@ -272,7 +307,7 @@ export default class Form extends Component {
             car_generation,
             isLoading
         } = this.state;
-        
+
         return (
             <form action='#' onSubmit={(e) => e.preventDefault()}>
                 <div className={'row'}>
@@ -339,6 +374,9 @@ export default class Form extends Component {
                         >
                             Искать
                         </Button>
+                    </div>
+                    <div className="col-xs-4" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        {this.renderResult()}
                     </div>
                 </div>
             </form>
