@@ -9,21 +9,43 @@ export default class Select extends Component {
 
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClickOutside);
-      }
-    
-      componentWillUnmount() {
+    }
+
+    componentWillUnmount() {
         document.removeEventListener('mousedown', this.handleClickOutside);
-      }
-    
-      handleClickOutside = (event) => {
+    }
+
+    handleClickOutside = (event) => {
         if (this.selectRef && !this.selectRef.contains(event.target)) {
-          this.setState({ isFocus: false });
+            this.setState({ isFocus: false });
         }
-      };
-      
-      handleSelectRef = (node) => {
+    };
+
+    handleSelectRef = (node) => {
         this.selectRef = node;
-      };
+    };
+
+    handleFocus = () => {
+        if (this.props.disabled) return;
+
+        this.setState({ isFocus: !this.state.isFocus });
+    }
+
+    handleClickList = (e) => {
+        const { 
+            dataset: {
+                id
+            },
+            innerText
+        } = e.target;
+
+        this.setState({
+            isFocus: false,
+            activeID: id,
+            activeName: innerText
+        });
+        this.props.onChange(id);
+    };
 
     render() {
         const { 
@@ -38,23 +60,37 @@ export default class Select extends Component {
         } = this.props;
 
         return (
-            <div className={`select-block ${isFocus ? 'focus' : ''} ${activeName ? 'added' : ''}`} ref={this.handleSelectRef}>
+            <div 
+            className={`select-block ${disabled ? 'select-block__disabled' : ''} ${isFocus ? 'focus' : ''} ${activeName ? 'added' : ''}`} 
+            ref={this.handleSelectRef}
+            >
                 <label>{title}</label>
                 <div className="custom-select">
-                    <div className="active-list" onClick={() => this.setState({ isFocus: !isFocus })}>
+                    <div 
+                        className="active-list" 
+                        onClick={this.handleFocus}
+                    >
                         {activeName ? activeName : ''}
                     </div>
-                    <input type="text" className="list-field" readOnly value={activeName ? activeName : ''} />
-                    <ul className="drop-down-list" style={{ display: isFocus ? 'block' : 'none' }} onClick={(e) => {
-                        this.setState({
-                            isFocus: false,
-                            activeID: e.target.dataset.id,
-                            activeName: e.target.innerText
-                        });
-                        this.props.onChange(e.target.dataset.id);
-                    }}>
+                    <input
+                        type="text" 
+                        className="list-field"
+                        readOnly 
+                        value={activeName ? activeName : ''} 
+                    />
+                    <ul 
+                        className="drop-down-list" 
+                        style={{ display: isFocus ? 'block' : 'none' }} 
+                        onClick={this.handleClickList}
+                    >
                         <li data-id={-1}>Все</li>
-                        {options.map((item) => <li key={item.id} className={String(activeID) === String(item.id) ? 'drop-down__active' : ''} data-id={item.id}>{item.name}</li>)}
+                        {options.map((item) => (
+                            <li 
+                                key={item.id} 
+                                className={String(activeID) === String(item.id) ? 'drop-down__active' : ''} 
+                                data-id={item.id}>{item.name}
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>
