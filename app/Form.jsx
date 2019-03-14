@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import Select from './components/Select';
+import Button from './components/Button';
 
 const car_brand = [
     { id: '10', name: 'Audi', url: 'audi' },
@@ -147,8 +148,10 @@ export default class Form extends Component {
             engine: null,
             year: null
         },
+        isLoading: false,
         car_models: [],
-        car_generation: []
+        car_generation: [],
+        searchResult: []
     }
   
     handlcChangeCarID = (key, val) => this.setState({ 
@@ -168,6 +171,7 @@ export default class Form extends Component {
         }
         const url = `https://carbucks.ru/carfilter.php?path=${encodeURIComponent(`/api/v2/filter/models?makeId=${id}`)}`;
 
+        this.setState({ isLoading: true });
         axios.get(url)
             .then((data) => {
 
@@ -177,6 +181,7 @@ export default class Form extends Component {
                         model: null,
                         brand: id
                     },
+                    isLoading: false,
                     car_generation: [],
                     car_models: data.data.map((model) => ({
                         ...model,
@@ -185,7 +190,7 @@ export default class Form extends Component {
                     }))
                 })
             })
-            .catch((err) => console.log('err', err))
+            .catch(() => this.setState({ isLoading: false }))
     }
 
     handleModelChange = (id) => {
@@ -198,6 +203,7 @@ export default class Form extends Component {
             return;
         }
 
+        this.setState({ isLoading: true });
         axios.get(url)
             .then((data) => {
                 this.setState({
@@ -206,6 +212,7 @@ export default class Form extends Component {
                         generation: null,
                         model: id
                     },
+                    isLoading: false,
                     car_generation: data.data.map((gen) => ({
                         ...gen,
                         id: String(gen.id),
@@ -213,7 +220,7 @@ export default class Form extends Component {
                     }))
                 })
             })
-            .catch((err) => console.log('err', err))
+            .catch(() => this.setState({ isLoading: false }))
     }
 
     handleSearch = () => {
@@ -230,15 +237,15 @@ export default class Form extends Component {
             yearTo: car_id.year
         }
 
-        if (!car_id.body && !car_id.engine) {
+        if (!car_id.body && !car_id.engine) { // не указан кузов и двигатель
             obj.generation = car_id.generation
-        } else if (!car_id.body && car_id.engine) {
+        } else if (!car_id.body && car_id.engine) { // не указан кузов, указан двигатель
             obj.generation = car_id.generation;
             obj.p3 = car_id.engine
-        } else if (car_id.body && !car_id.engine) {
+        } else if (car_id.body && !car_id.engine) { // указан кузов, не указан двигатель
             obj.generation = car_id.generation;
             obj.p3 = _.find(car_body, { id: car_id.body }).url
-        } else {
+        } else { // указан кузов и двигатель
             obj.p3 = car_id.engine;
             obj.bodyType = car_id.body
         }
@@ -246,17 +253,26 @@ export default class Form extends Component {
         const ser = serializeParams(removeEmpty(obj));
 
         const url = `https://carbucks.ru/carfilter.php?path=${encodeURIComponent(`/api/v2/auctions/search?${ser}`)}`;
+
+        this.setState({ isLoading: true });
         axios.get(url)
-        .then((data) => console.log(data))
+        .then((data) => {
+            this.setState({ 
+                searchResult: data.data.searchResult.items,
+                isLoading: false
+            })
+        })
+        .catch(() => this.setState({ isLoading: false }))
     }    
 
     render() {
         const { 
             car_id,
             car_models,
-            car_generation
+            car_generation,
+            isLoading
         } = this.state;
-
+        
         return (
             <form action='#' onSubmit={(e) => e.preventDefault()}>
                 <div className={'row'}>
@@ -266,6 +282,7 @@ export default class Form extends Component {
                             value={car_id.brand}
                             options={car_brand}
                             onChange={this.handleBrandChange}
+                            showAll={false}
                     />
                     </div>
                     <div className={'col-xs-4'}>
@@ -275,6 +292,7 @@ export default class Form extends Component {
                             value={car_id.model}
                             disabled={car_models.length === 0}
                             onChange={this.handleModelChange}
+                            showAll={false}
                     />
                     </div>
                     <div className={'col-xs-4'}>
@@ -284,6 +302,7 @@ export default class Form extends Component {
                             value={car_id.generation}
                             disabled={car_generation.length === 0}
                             onChange={(id) => this.handlcChangeCarID('generation', id)}
+                            showAll={false}
                     />
                     </div>
                     <div className={'col-xs-4'}>
@@ -312,7 +331,15 @@ export default class Form extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <button disabled={!car_id.brand && !car_id.model && !car_id.generation} onClick={this.handleSearch}>Искать</button>
+                    <div className="col-xs-4">
+                        <Button 
+                            disabled={Boolean(!car_id.brand || !car_id.model || !car_id.generation || isLoading)} 
+                            onClick={this.handleSearch}
+                            fullWidth
+                        >
+                            Искать
+                        </Button>
+                    </div>
                 </div>
             </form>
         )

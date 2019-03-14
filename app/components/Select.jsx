@@ -50,7 +50,8 @@ export default class Select extends Component {
             title = '',
             value = null,
             disabled = false,
-            options = []
+            options = [],
+            showAll = true
         } = this.props;
 
         const is = options.length !== 0 && value;
@@ -80,7 +81,7 @@ export default class Select extends Component {
                         style={{ display: isFocus ? 'block' : 'none' }} 
                         onClick={this.handleClickList}
                     >
-                        <li data-id={null}>Все</li>
+                        {showAll && <li data-id={null}>Все</li>}
                         {options.map((item) => (
                             <li 
                                 key={item.id} 
