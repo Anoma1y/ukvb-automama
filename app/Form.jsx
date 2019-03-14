@@ -1,122 +1,132 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import _ from 'lodash';
 import Select from './components/Select';
 
 const car_brand = [
-    { id: 10, name: 'Audi' },
-    { id: 18, name: 'BMW' },
-    { id: 21, name: 'Brilliance' },
-    { id: 25, name: 'Buick' },
-    { id: 28, name: 'Cadillac' },
-    { id: 34, name: 'Chery' },
-    { id: 35, name: 'Chevrolet' },
-    { id: 36, name: 'Chrysler' },
-    { id: 37, name: 'Citroen' },
-    { id: 42, name: 'Daewoo' },
-    { id: 47, name: 'Datsun' },
-    { id: 51, name: 'Dodge' },
-    { id: 52, name: 'DongFeng' },
-    { id: 61, name: 'Fiat' },
-    { id: 63, name: 'Ford' },
-    { id: 64, name: 'Foton' },
-    { id: 67, name: 'Geely' },
-    { id: 71, name: 'Great Wall' },
-    { id: 73, name: 'Haima' },
-    { id: 76, name: 'Honda' },
-    { id: 79, name: 'Hyundai' },
-    { id: 80, name: 'Infiniti' },
-    { id: 83, name: 'Iran Khodro' },
-    { id: 86, name: 'IVECO' },
-    { id: 88, name: 'Jaguar' },
-    { id: 89, name: 'Jeep' },
-    { id: 92, name: 'Kia' },
-    { id: 215, name: 'Lada' },
-    { id: 97, name: 'Land Rover' },
-    { id: 99, name: 'Lexus' },
-    { id: 101, name: 'Lifan' },
-    { id: 105, name: 'Luxgen' },
-    { id: 111, name: 'Maserati' },
-    { id: 113, name: 'Mazda' },
-    { id: 116, name: 'Mercedes-Benz' },
-    { id: 122, name: 'MINI' },
-    { id: 123, name: 'Mitsubishi' },
-    { id: 127, name: 'Nissan' },
-    { id: 130, name: 'Opel' },
-    { id: 135, name: 'Peugeot' },
-    { id: 139, name: 'Porsche' },
-    { id: 147, name: 'Renault' },
-    { id: 157, name: 'SEAT' },
-    { id: 159, name: 'Skoda' },
-    { id: 165, name: 'SsangYong' },
-    { id: 166, name: 'Subaru' },
-    { id: 167, name: 'Suzuki' },
-    { id: 10003741, name: 'T' },
-    { id: 176, name: 'Toyota' },
-    { id: 184, name: 'Volkswagen' },
-    { id: 185, name: 'Volvo' },
-    { id: 186, name: 'Vortex' },
-    { id: 216, name: 'ГАЗ' },
-    { id: 217, name: 'ЗАЗ' },
-    { id: 226, name: 'ТагАЗ' },
-    { id: 227, name: 'УАЗ' },
+    { id: 10, name: 'Audi', url: 'audi' },
+    { id: 18, name: 'BMW', url: 'bmw' },
+    { id: 21, name: 'Brilliance', url: 'brilliance' },
+    { id: 25, name: 'Buick', url: 'buick' },
+    { id: 28, name: 'Cadillac', url: 'cadillac' },
+    { id: 34, name: 'Chery', url: 'chery' },
+    { id: 35, name: 'Chevrolet', url: 'chevrolet' },
+    { id: 36, name: 'Chrysler', url: 'chrysler' },
+    { id: 37, name: 'Citroen', url: 'citroen' },
+    { id: 42, name: 'Daewoo', url: 'daewoo' },
+    { id: 47, name: 'Datsun', url: 'datsun' },
+    { id: 51, name: 'Dodge', url: 'dodge' },
+    { id: 52, name: 'DongFeng', url: 'dongfeng' },
+    { id: 61, name: 'Fiat', url: 'fiat' },
+    { id: 63, name: 'Ford', url: 'ford' },
+    { id: 64, name: 'Foton', url: 'foton' },
+    { id: 67, name: 'Geely', url: 'geely' },
+    { id: 71, name: 'Great Wall', url: 'great-wall' },
+    { id: 73, name: 'Haima', url: 'haima' },
+    { id: 76, name: 'Honda', url: 'honda' },
+    { id: 79, name: 'Hyundai', url: 'hyundai' },
+    { id: 80, name: 'Infiniti', url: 'infiniti' },
+    { id: 83, name: 'Iran Khodro', url: 'iran-khodro' },
+    { id: 86, name: 'IVECO', url: 'iveco' },
+    { id: 88, name: 'Jaguar', url: 'jaguar' },
+    { id: 89, name: 'Jeep', url: 'jeep' },
+    { id: 92, name: 'Kia', url: 'kia' },
+    { id: 215, name: 'Lada', url: 'lada' },
+    { id: 97, name: 'Land Rover', url: 'land-rover' },
+    { id: 99, name: 'Lexus', url: 'lexus' },
+    { id: 101, name: 'Lifan', url: 'lifan' },
+    { id: 105, name: 'Luxgen', url: 'luxgen' },
+    { id: 111, name: 'Maserati', url: 'maserati' },
+    { id: 113, name: 'Mazda', url: 'mazda' },
+    { id: 116, name: 'Mercedes-Benz', url: 'mercedes-benz' },
+    { id: 122, name: 'MINI', url: 'mini' },
+    { id: 123, name: 'Mitsubishi', url: 'mitsubishi' },
+    { id: 127, name: 'Nissan', url: 'nissan' },
+    { id: 130, name: 'Opel', url: 'opel' },
+    { id: 135, name: 'Peugeot', url: 'peugeot' },
+    { id: 139, name: 'Porsche', url: 'porsche' },
+    { id: 147, name: 'Renault', url: 'renault' },
+    { id: 157, name: 'SEAT', url: 'seat' },
+    { id: 159, name: 'Skoda', url: 'skoda' },
+    { id: 165, name: 'SsangYong', url: 'ssangyong' },
+    { id: 166, name: 'Subaru', url: 'subaru' },
+    { id: 167, name: 'Suzuki', url: 'suzuki' },
+    { id: 10003741, name: 'T', url: 't' },
+    { id: 176, name: 'Toyota', url: 'toyota' },
+    { id: 184, name: 'Volkswagen', url: 'volkswagen' },
+    { id: 185, name: 'Volvo', url: 'volvo' },
+    { id: 186, name: 'Vortex', url: 'vortex' },
+    { id: 216, name: 'ГАЗ', url: 'gaz' },
+    { id: 217, name: 'ЗАЗ', url: 'zaz' },
+    { id: 226, name: 'ТагАЗ', url: 'tagaz' },
+    { id: 227, name: 'УАЗ', url: 'uaz' },
 ]
-
-// const car_models = [
-    // { id: 1, name: 'A1' },
-    // { id: 2, name: 'A3' },
-    // { id: 3, name: 'A4' },
-// ]
-
-// const car_generation = [
-    // { id: 1, name: 'II (8P)' },
-    // { id: 2, name: 'II (8P) Рестайлинг 1' },
-    // { id: 3, name: 'II (8P) Рестайлинг 2' },
-// ]
 
 const car_body = [
     { id: 1, name: 'Внедорожник' },
     { id: 2, name: 'Грузо-пассажирский (комби)' },
     { id: 3, name: 'Кабриолет' },
+    { id: 4, name: 'Компактвэн' },
+    { id: 5, name: 'Купе' },
+    { id: 6, name: 'Лифтбэк' },
+    { id: 7, name: 'Микроавтобус' },
+    { id: 8, name: 'Минивэн' },
+    { id: 9, name: 'Пикап' },
+    { id: 10, name: 'Родстер' },
+    { id: 11, name: 'Седан' },
+    { id: 12, name: 'Универсал' },
+    { id: 13, name: 'Фургон' },
+    { id: 14, name: 'Хэтчбек' },
 ]
 
 const car_engine = [
-    { id: 1, name: 'Бензиновый' },
-    { id: 2, name: 'Гибридный' },
-    { id: 3, name: 'Дизельный' }
+    { id: 'gasoline', name: 'Бензиновый' },
+    { id: 'hybrid', name: 'Гибридный' },
+    { id: 'diesel', name: 'Дизельный' }
 ]
 
 const car_year = [
-    { id: 1, name: '2001' },
-    { id: 2, name: '2002' },
-    { id: 3, name: '2003' },
-    { id: 4, name: '2004' },
-    { id: 5, name: '2005' },
-    { id: 6, name: '2006' },
-    { id: 7, name: '2007' },
-    { id: 8, name: '2008' },
-    { id: 9, name: '2009' },
-    { id: 10, name: '2010' },
-    { id: 11, name: '2011' },
-    { id: 12, name: '2012' },
-    { id: 13, name: '2013' },
-    { id: 14, name: '2014' },
-    { id: 15, name: '2015' },
-    { id: 16, name: '2016' },
+    { id: 1998, name: '1998' },
+    { id: 1999, name: '1999' },
+    { id: 2000, name: '2000' },
+    { id: 2001, name: '2001' },
+    { id: 2002, name: '2002' },
+    { id: 2003, name: '2003' },
+    { id: 2004, name: '2004' },
+    { id: 2005, name: '2005' },
+    { id: 2006, name: '2006' },
+    { id: 2007, name: '2007' },
+    { id: 2008, name: '2008' },
+    { id: 2009, name: '2009' },
+    { id: 2010, name: '2010' },
+    { id: 2011, name: '2011' },
+    { id: 2012, name: '2012' },
+    { id: 2013, name: '2013' },
+    { id: 2014, name: '2014' },
+    { id: 2015, name: '2015' },
+    { id: 2016, name: '2016' },
+    { id: 2017, name: '2017' },
+    { id: 2018, name: '2018' },
+    { id: 2019, name: '2019' },
 ]
 
 
 export default class Form extends Component {
-
     state = {
+        car: {
+            brand_id: null,
+            model_id: null,
+            generation_id: null,
+        },
         car_models: [],
         car_generation: []
     }
-
+  
     handleBrandChange = (id) => {
         if (id === -1) {
             this.setState({
-                car_models: [],
-                car_generation: []
+                car_generation: [],
+                car_models: []
             })
             return;
         }
@@ -128,8 +138,8 @@ export default class Form extends Component {
 
                 this.setState({
                     car_models: data.data.map((model) => ({
-                        id: model.id,
-                        name: model.title
+                        ...model,
+                        name: model.title,
                     }))
                 })
             })
@@ -141,8 +151,7 @@ export default class Form extends Component {
 
         if (id === -1) {
             this.setState({
-                car_models: [],
-                car_generation: []
+                car_generation: [],
             })
             return;
         }
