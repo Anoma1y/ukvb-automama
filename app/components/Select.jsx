@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { prefixed } from 'eventemitter3';
 
 export default class Select extends Component {
     state = {
@@ -46,7 +47,7 @@ export default class Select extends Component {
         });
         this.props.onChange(id);
     };
-
+    
     render() {
         const { 
             isFocus,
@@ -59,9 +60,11 @@ export default class Select extends Component {
             options = []
         } = this.props;
 
+        const is = options.length !== 0;
+
         return (
             <div 
-            className={`select-block ${disabled ? 'select-block__disabled' : ''} ${isFocus ? 'focus' : ''} ${activeName ? 'added' : ''}`} 
+            className={`select-block ${disabled ? 'select-block__disabled' : ''} ${isFocus ? 'focus' : ''} ${is && activeName ? 'added' : ''}`} 
             ref={this.handleSelectRef}
             >
                 <label>{title}</label>
@@ -70,13 +73,13 @@ export default class Select extends Component {
                         className="active-list" 
                         onClick={this.handleFocus}
                     >
-                        {activeName ? activeName : ''}
+                        {is && activeName ? activeName : ''}
                     </div>
                     <input
                         type="text" 
                         className="list-field"
                         readOnly 
-                        value={activeName ? activeName : ''} 
+                        value={is && activeName ? activeName : ''} 
                     />
                     <ul 
                         className="drop-down-list" 
