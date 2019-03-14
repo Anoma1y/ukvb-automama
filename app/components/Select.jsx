@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { prefixed } from 'eventemitter3';
+import _ from 'lodash';
 
 export default class Select extends Component {
     state = {
         isFocus: false,
-        activeID: null,
         activeName: null
     }
 
@@ -37,34 +36,29 @@ export default class Select extends Component {
             dataset: {
                 id
             },
-            innerText
         } = e.target;
 
-        this.setState({
-            isFocus: false,
-            activeID: id,
-            activeName: innerText
-        });
+        this.setState({ isFocus: false });
         this.props.onChange(id);
     };
     
     render() {
         const { 
             isFocus,
-            activeID,
-            activeName
          } = this.state;
         const {
             title = '',
+            value = null,
             disabled = false,
             options = []
         } = this.props;
 
-        const is = options.length !== 0;
+        const is = options.length !== 0 && value;
+        const activeName = _.find(options, { id: value }) || null;
 
         return (
             <div 
-            className={`select-block ${disabled ? 'select-block__disabled' : ''} ${isFocus ? 'focus' : ''} ${is && activeName ? 'added' : ''}`} 
+            className={`select-block ${disabled ? 'select-block__disabled' : ''} ${isFocus ? 'focus' : ''} ${is ? 'added' : ''}`} 
             ref={this.handleSelectRef}
             >
                 <label>{title}</label>
@@ -73,24 +67,24 @@ export default class Select extends Component {
                         className="active-list" 
                         onClick={this.handleFocus}
                     >
-                        {is && activeName ? activeName : ''}
+                        {is && activeName ? activeName.name : ''}
                     </div>
                     <input
                         type="text" 
                         className="list-field"
                         readOnly 
-                        value={is && activeName ? activeName : ''} 
+                        value={is && activeName ? activeName.name : ''} 
                     />
                     <ul 
                         className="drop-down-list" 
                         style={{ display: isFocus ? 'block' : 'none' }} 
                         onClick={this.handleClickList}
                     >
-                        <li data-id={-1}>Все</li>
+                        <li data-id={null}>Все</li>
                         {options.map((item) => (
                             <li 
                                 key={item.id} 
-                                className={String(activeID) === String(item.id) ? 'drop-down__active' : ''} 
+                                className={String(value) === String(item.id) ? 'drop-down__active' : ''} 
                                 data-id={item.id}>{item.name}
                             </li>
                         ))}

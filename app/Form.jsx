@@ -125,7 +125,17 @@ const serializeParams = (obj) => {
     }
   
     return str.join("&");
-  };
+};
+
+const removeEmpty = (obj) => {
+    const modObj = { ...obj };
+  
+    Object.keys(modObj).forEach((key) =>
+      modObj[key] === '-1' || modObj[key] === undefined || modObj[key] === null ? delete modObj[key] : modObj[key]
+    );
+  
+    return modObj;
+};
 
 export default class Form extends Component {
     state = {
@@ -156,7 +166,6 @@ export default class Form extends Component {
             })
             return;
         }
-
         const url = `https://carbucks.ru/carfilter.php?path=${encodeURIComponent(`/api/v2/filter/models?makeId=${id}`)}`;
 
         axios.get(url)
@@ -164,9 +173,11 @@ export default class Form extends Component {
 
                 this.setState({
                     car_id: {
-                        ...this.state.car_id,
+                        generation: null,
+                        model: null,
                         brand: id
                     },
+                    car_generation: [],
                     car_models: data.data.map((model) => ({
                         ...model,
                         id: String(model.id),
@@ -192,6 +203,7 @@ export default class Form extends Component {
                 this.setState({
                     car_id: {
                         ...this.state.car_id,
+                        generation: null,
                         model: id
                     },
                     car_generation: data.data.map((gen) => ({
@@ -210,24 +222,37 @@ export default class Form extends Component {
         const find_car_id = {
             brand: _.find(car_brand, { id: car_id.brand }),
             model: _.find(this.state.car_models, { id: car_id.model }),
-            generation: _.find(this.state.car_generation, { id: car_id.generation }),
         };
-        
-        const obj = {
-            p1: 'bmw',
-            p2: '7er',
-            p3: 'caravan',
-            generation: '272',
-            bodyType: '1',
-            yearFrom: '2018',
-            yearTo: '2018'
+        let obj = {
+            // p1: find_car_id.brand.url,
+            // p2: find_car_id.model.url,
+            yearFrom: car_id.year,
+            yearTo: car_id.year
         }
-        
-        console.log(serializeParams(obj))
+
+        if (!car_id.body && !car_id.engine) {
+            obj.generation = car_id.generation
+        } else if (!car_id.body && car_id.engine) {
+            obj.generation = car_id.generation;
+            obj.p3 = car_id.engine
+        } else if (car_id.body && !car_id.engine) {
+            obj.generation = car_id.generation;
+            obj.p3 = _.find(car_body, { id: car_id.body }).url
+        } else {
+            obj.p3 = car_id.engine;
+            obj.bodyType = car_id.body
+        }
+
+        const ser = serializeParams(removeEmpty(obj));
+        console.log(ser)
+        // const url = `https://carbucks.ru/carfilter.php?path=${encodeURIComponent(`/api/v2/auctions/search?${ser}`)}`;
+        // axios.get(url)
+        // .then((data) => console.log(data))
     }    
 
     render() {
         const { 
+            car_id,
             car_models,
             car_generation
         } = this.state;
@@ -238,6 +263,7 @@ export default class Form extends Component {
                     <div className={'col-xs-4'}>
                         <Select 
                             title={'Марка'}
+                            value={car_id.brand}
                             options={car_brand}
                             onChange={this.handleBrandChange}
                     />
@@ -246,6 +272,7 @@ export default class Form extends Component {
                         <Select 
                             title={'Модель'}
                             options={car_models}
+                            value={car_id.model}
                             disabled={car_models.length === 0}
                             onChange={this.handleModelChange}
                     />
@@ -254,6 +281,7 @@ export default class Form extends Component {
                         <Select 
                             title={'Поколение'}
                             options={car_generation}
+                            value={car_id.generation}
                             disabled={car_generation.length === 0}
                             onChange={(id) => this.handlcChangeCarID('generation', id)}
                     />
@@ -262,6 +290,7 @@ export default class Form extends Component {
                         <Select 
                             title={'Кузов'}
                             options={car_body}
+                            value={car_id.body}
                             onChange={(id) => this.handlcChangeCarID('body', id)}
                     />
                     </div>
@@ -269,6 +298,7 @@ export default class Form extends Component {
                         <Select 
                             title={'Двигатель'}
                             options={car_engine}
+                            value={car_id.engine}
                             onChange={(id) => this.handlcChangeCarID('engine', id)}
                     />
                     </div>
@@ -276,6 +306,7 @@ export default class Form extends Component {
                         <Select 
                             title={'Год выпуска'}
                             options={car_year}
+                            value={car_id.year}
                             onChange={(id) => this.handlcChangeCarID('year', id)}
                     />
                     </div>
