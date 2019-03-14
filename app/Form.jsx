@@ -64,19 +64,19 @@ const car_brand = [
 
 const car_body = [
     { id: '1', name: 'Внедорожник', url: 'offroad' },
-    { id: '2', name: 'Грузо-пассажирский (комби)', url: 'combi' },
+    { id: '11', name: 'Грузо-пассажирский (комби)', url: 'combi' },
     { id: '3', name: 'Кабриолет', url: 'cabrio' },
-    { id: '4', name: 'Компактвэн', url: 'compactvan' },
-    { id: '5', name: 'Купе', url: 'coupe' },
-    { id: '6', name: 'Лифтбэк', url: 'liftback' },
-    { id: '7', name: 'Микроавтобус', url: 'minibus' },
-    { id: '8', name: 'Минивэн', url: 'minivan' },
-    { id: '9', name: 'Пикап', url: 'pickup' },
-    { id: '10', name: 'Родстер', url: 'roadster' },
-    { id: '11', name: 'Седан', url: 'sedan' },
-    { id: '12', name: 'Универсал', url: 'wagon' },
-    { id: '13', name: 'Фургон', url: 'caravan' },
-    { id: '14', name: 'Хэтчбек', url: 'hatchback' },
+    { id: '14', name: 'Компактвэн', url: 'compactvan' },
+    { id: '2', name: 'Купе', url: 'coupe' },
+    { id: '15', name: 'Лифтбэк', url: 'liftback' },
+    { id: '6', name: 'Микроавтобус', url: 'minibus' },
+    { id: '5', name: 'Минивэн', url: 'minivan' },
+    { id: '7', name: 'Пикап', url: 'pickup' },
+    { id: '4', name: 'Родстер', url: 'roadster' },
+    { id: '8', name: 'Седан', url: 'sedan' },
+    { id: '9', name: 'Универсал', url: 'wagon' },
+    { id: '10', name: 'Фургон', url: 'caravan' },
+    { id: '12', name: 'Хэтчбек', url: 'hatchback' },
 ]
 
 const car_engine = [
@@ -224,8 +224,8 @@ export default class Form extends Component {
             model: _.find(this.state.car_models, { id: car_id.model }),
         };
         let obj = {
-            // p1: find_car_id.brand.url,
-            // p2: find_car_id.model.url,
+            p1: find_car_id.brand.url,
+            p2: find_car_id.model.url,
             yearFrom: car_id.year,
             yearTo: car_id.year
         }
@@ -244,10 +244,10 @@ export default class Form extends Component {
         }
 
         const ser = serializeParams(removeEmpty(obj));
-        console.log(ser)
-        // const url = `https://carbucks.ru/carfilter.php?path=${encodeURIComponent(`/api/v2/auctions/search?${ser}`)}`;
-        // axios.get(url)
-        // .then((data) => console.log(data))
+
+        const url = `https://carbucks.ru/carfilter.php?path=${encodeURIComponent(`/api/v2/auctions/search?${ser}`)}`;
+        axios.get(url)
+        .then((data) => console.log(data))
     }    
 
     render() {
@@ -312,7 +312,7 @@ export default class Form extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <button onClick={this.handleSearch}>Искать</button>
+                    <button disabled={!car_id.brand && !car_id.model && !car_id.generation} onClick={this.handleSearch}>Искать</button>
                 </div>
             </form>
         )
