@@ -63,20 +63,20 @@ const car_brand = [
 ]
 
 const car_body = [
-    { id: 1, name: 'Внедорожник' },
-    { id: 2, name: 'Грузо-пассажирский (комби)' },
-    { id: 3, name: 'Кабриолет' },
-    { id: 4, name: 'Компактвэн' },
-    { id: 5, name: 'Купе' },
-    { id: 6, name: 'Лифтбэк' },
-    { id: 7, name: 'Микроавтобус' },
-    { id: 8, name: 'Минивэн' },
-    { id: 9, name: 'Пикап' },
-    { id: 10, name: 'Родстер' },
-    { id: 11, name: 'Седан' },
-    { id: 12, name: 'Универсал' },
-    { id: 13, name: 'Фургон' },
-    { id: 14, name: 'Хэтчбек' },
+    { id: 1, name: 'Внедорожник', url: 'offroad' },
+    { id: 2, name: 'Грузо-пассажирский (комби)', url: 'combi' },
+    { id: 3, name: 'Кабриолет', url: 'cabrio' },
+    { id: 4, name: 'Компактвэн', url: 'compactvan' },
+    { id: 5, name: 'Купе', url: 'coupe' },
+    { id: 6, name: 'Лифтбэк', url: 'liftback' },
+    { id: 7, name: 'Микроавтобус', url: 'minibus' },
+    { id: 8, name: 'Минивэн', url: 'minivan' },
+    { id: 9, name: 'Пикап', url: 'pickup' },
+    { id: 10, name: 'Родстер', url: 'roadster' },
+    { id: 11, name: 'Седан', url: 'sedan' },
+    { id: 12, name: 'Универсал', url: 'wagon' },
+    { id: 13, name: 'Фургон', url: 'caravan' },
+    { id: 14, name: 'Хэтчбек', url: 'hatchback' },
 ]
 
 const car_engine = [
