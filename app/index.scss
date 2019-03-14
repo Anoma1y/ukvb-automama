@@ -1,0 +1,468 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+
+* {
+    box-sizing: border-box;
+}
+
+form {
+    display: flex;
+    justify-content: flex-start;   
+    flex-wrap: wrap;
+    transition: flex 1s ease;
+    position: relative;
+    font-family: 'Open Sans';
+}
+
+.col {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.col-4 {
+    width: calc(100% / 4 - 25px);
+    margin: 0 20px 20px 0;
+    vertical-align: top;
+}
+
+// select {
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+//     -ms-appearance: none;
+//     appearance: none;
+//     outline: 0;
+//     box-shadow: none;
+//     // border: 0 !important;
+//     background: #fff;
+//     background-image: none;
+// }
+// // border-radius: 4px;
+// // width: 100%;
+// // position: relative;
+// // height: 50px;
+// // margin: 0;
+// // padding: 0 9px 0 20px;
+// // border: 1px solid #e5e5e5;
+// // box-sizing: border-box;
+// // line-height: 50px;
+// // font-size: 16px;
+// // text-align: left;
+// // background-color: #FFFFFF;
+// // color: #666;
+// // -moz-appearance: none;
+// // -webkit-appearance: none;
+// // text-indent: 0.01px;
+// // background-origin: content-box;
+// // background-position: right center;
+// // background-repeat: no-repeat;
+// // background-size: 20px 20px;
+// // cursor: pointer;
+
+//   .select {
+//     position: relative;
+//     display: block;
+//     width: 100%;
+//     // line-height: 3;
+//     // background: #999;
+//     // overflow: hidden;
+//     // border-radius: .25em;
+//   }
+//   select {
+//     width: 100%;
+//     height: 100%;
+//     margin: 0;
+//     padding: 0 0 0 .5em;
+//     color: #666;
+//     font-size: 16px;
+//     border: 1px solid #e5e5e5;
+//     text-indent: 0.01px;
+//     cursor: pointer;
+//     line-height: 50px;
+//     background-color: #ffffff;
+
+//   }
+//   select::-ms-expand {
+//     display: none;
+//   }
+//   /* Arrow */
+//   .select::after {
+//     content: '\25BC';
+//     position: absolute;
+//     top: 50%;
+//     transform: translateY(-50%);
+//     color: #333;
+//     right: 0;
+//     bottom: 0;
+//     padding: 0 1em;
+//     // background: #fff;
+//     pointer-events: none;
+//   }
+//   /* Transition */
+//   .select:hover::after {
+//     color: #333;
+//   }
+//   .select::after {
+//     -webkit-transition: .25s all ease;
+//     -o-transition: .25s all ease;
+//     transition: .25s all ease;
+//   }
+
+$primary-color: #E2001A;
+$form-color: #939393;
+$active-font: #3c3c3c;
+$theme-color: #2196f3;
+$error-color: #d50000;
+//contact form
+.material-form {
+  padding: 15px;
+  background-color: #fff;
+  .input-block {
+    background-color: #fff;
+    border-bottom: solid 1px #c8c8c8;
+    width: 100%;
+    height: 50px;
+    padding: 0;
+    position: relative;
+    margin-bottom: 20px;
+    // @include transition(all 0.3s ease-out);
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      width: 0%;
+      bottom: 0;
+      height: 2px;
+    //   @include transition(all 0.3s ease-out);
+      background-color: $theme-color;
+    }
+    &.focus {
+      border-color: #fff;
+      label {
+        color: $theme-color;
+        top: 0;
+        font-size: 13px;
+      }
+      &::before {
+        left: 0%;
+        width: 100%;
+      }
+    }
+    &.has-value {
+      background-color: #fff;
+      label {
+        top: 0;
+        font-size: 13px;
+      }
+    }
+    &.error {
+      border-color: #fff;
+      &::before {
+        left: 0%;
+        width: 100%;
+        background-color: $error-color;
+      }
+    }
+    &.textarea {
+      height: auto;
+      .form-control {
+        height: auto;
+        resize: none;
+        padding-top: 20px;
+        font-family: 'Roboto', sans-serif;
+      }
+    }
+    &.floating-field {
+      padding: 2px 0 0;
+      height: 62px;
+      &.textarea {
+        height: auto;
+      }
+    }
+    label {
+      position: absolute;
+      left: 0;
+      top: 29px;
+      width: 100%;
+      height: 20px;
+      margin: 0;
+      font-weight: 500;
+      z-index: 1;
+      color: $form-color;
+      font-size: 13px;
+    //   @include transition(all 0.3s ease-out);
+      line-height: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .form-control {
+      background-color: transparent;
+      padding: 4px 0 0;
+      border: none;
+    //   @include border-radius(0);
+    //   @include box-shadow(none);
+      height: 100%;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+      font-size: 14px;
+      font-weight: 500;
+      color: $active-font;
+    }
+    .form-control:focus {
+      outline: none;
+      label {
+        top: 0;
+      }
+    }
+  }
+  .error-label {
+    color: $error-color;
+    margin-top: -15px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .form-note {
+    font-size: 13px;
+    color: $form-color;
+    margin-top: -15px;
+    margin-bottom: 15px;
+  }
+  .square-button {
+    background-color: lighten($theme-color, 5%);
+    color: #fff;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    // @include border-radius(0);
+    // @include transition(all 0.3s ease);
+    padding: 0;
+    height: 60px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    &:hover,
+    &:focus {
+      background-color: darken($theme-color, 5%);
+    }
+  }
+}
+
+
+/*dropdown list as ul li method*/
+
+.select-block {
+  $size: 52px;
+  $padding: 15px;
+  background-color: #fff;
+  width: 100%;
+  padding: 12px 0 0;
+  position: relative;
+  margin-bottom: 20px;
+//   @include transition(all 0.3s ease-out);
+  label {
+    position: absolute;
+    left: 0;
+    top: 32px;
+    height: 20px;
+    width: 100%;
+    // @include transition(all 0.3s ease-out);
+    margin: 0;
+    font-weight: 500;
+    z-index: 1;
+    color: $form-color;
+    font-size: 12px;
+    line-height: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .active-list {
+    width: 100%;
+    height: $size;
+    padding: 0;
+    color: #c9c9c9;
+    position: relative;
+    z-index: 2;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-right: 20px;
+    // @include box-sizing(border-box);
+    &:after {
+      content: "▼";
+      position: absolute;
+      right: 0;
+      background-color: #fff;
+      top: 50%;
+      width: 20px;
+      padding-left: 5px;
+      text-align: left;
+      height: $size;
+      line-height: $size;
+      color: $form-color;
+      font-size: 14px;
+      margin-top: -$size/2;
+    }
+  }
+  &.added {
+    label {
+      top: 0;
+      font-size: 13px;
+    }
+    .active-list {
+      color: $active-font;
+      font-size: 12px;
+    }
+  }
+  &.added.focus {
+    label {
+      top: 0;
+    }
+  }
+  &.focus {
+    label {
+      top: 0;
+      font-size: 13px;
+      color: $theme-color;
+    }
+    .active-list {
+      font-size: 12px;
+    }
+    .custom-select {
+      border-color: #fff;
+    }
+    .active-list:after {
+      content: "▲";
+      color: $active-font;
+    }
+    .custom-select::before {
+      left: 0%;
+      width: 100%;
+    }
+  }
+  .custom-select {
+    border-bottom: solid 1px #c8c8c8;
+    display: inline-block;
+    height: $size;
+    position: relative;
+    padding: 0;
+    width: 100%;
+    line-height: $size;
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      width: 0%;
+      bottom: 0;
+      height: 2px;
+    //   @include transition(all 0.3s ease-out);
+      background-color: $theme-color;
+    }
+    .list-field {
+      width: 100%;
+      height: $size;
+      padding: 0 $padding;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+    }
+    .drop-down-list {
+      width: 100%;
+      height: auto;
+      max-height: 250px;
+      overflow-x: auto;
+      z-index: 99;
+      padding: 0;
+      margin: 0;
+      position: absolute;
+      top: 100%;
+      margin-top: 2px;
+      left: 0;
+      background-color: white;
+      display: none;
+    //   @include box-shadow(rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px);
+      li {
+        padding: $padding*.70 $padding;
+        cursor: pointer;
+        font-size: 12px;
+        line-height: normal;
+        background-color: #fafafa;
+        background-color: #fff;
+        // @include transition(all 0.3s ease-out);
+        input[type="checkbox"] {
+          margin: 0;
+          margin-right: 8px;
+          position: relative;
+          top: 1px;
+        }
+        label {
+          font-weight: normal;
+          cursor: pointer;
+          display: block;
+        }
+      }
+      li:hover {
+        color: $active-font;
+        background-color: rgba(black, .05);
+      }
+    }
+    .drop-down-list .add-new {
+      border-top: solid 1px #c8c8c8;
+      padding: $padding;
+      color: $active-font;
+      i {
+        font-size: 16px;
+        margin-top: 3px;
+        color: $form-color;
+      }
+    }
+  }
+}
+
+//tablet and above devices
+@media (min-width: 768px) {
+  .contact-wrap {
+    width: 600px;
+    margin: auto;
+  }
+  .material-form {
+    .input-block {
+      label {
+        font-size: 18px;
+        line-height: 14px;
+      }
+      .form-control {
+        font-size: 18px;
+      }
+    }
+  }
+  .select-block {
+    label {
+      font-size: 18px;
+      line-height: 14px;
+    }
+    &.added {
+      .active-list {
+        font-size: 18px;
+      }
+    }
+    &.focus {
+      .active-list {
+        font-size: 18px;
+      }
+    }
+    .custom-select {
+      .drop-down-list {
+        li {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+  .material-form {
+    padding: 30px;
+  }
+}
