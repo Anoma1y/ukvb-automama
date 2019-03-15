@@ -311,7 +311,7 @@ export default class Form extends Component {
         return (
             <form action='#' onSubmit={(e) => e.preventDefault()}>
                 <div className={'row'}>
-                    <div className={'col-xs-4'}>
+                    <div className={'col-xs-12 col-sm-6 col-md-4'}>
                         <Select 
                             title={'Марка'}
                             value={car_id.brand}
@@ -320,7 +320,7 @@ export default class Form extends Component {
                             showAll={false}
                     />
                     </div>
-                    <div className={'col-xs-4'}>
+                    <div className={'col-xs-12 col-sm-6 col-md-4'}>
                         <Select 
                             title={'Модель'}
                             options={car_models}
@@ -330,7 +330,7 @@ export default class Form extends Component {
                             showAll={false}
                     />
                     </div>
-                    <div className={'col-xs-4'}>
+                    <div className={'col-xs-12 col-sm-6 col-md-4'}>
                         <Select 
                             title={'Поколение'}
                             options={car_generation}
@@ -340,7 +340,7 @@ export default class Form extends Component {
                             showAll={false}
                     />
                     </div>
-                    <div className={'col-xs-4'}>
+                    <div className={'col-xs-12 col-sm-6 col-md-4'}>
                         <Select 
                             title={'Кузов'}
                             options={car_body}
@@ -348,7 +348,7 @@ export default class Form extends Component {
                             onChange={(id) => this.handlcChangeCarID('body', id)}
                     />
                     </div>
-                    <div className={'col-xs-4'}>
+                    <div className={'col-xs-12 col-sm-6 col-md-4'}>
                         <Select 
                             title={'Двигатель'}
                             options={car_engine}
@@ -356,7 +356,7 @@ export default class Form extends Component {
                             onChange={(id) => this.handlcChangeCarID('engine', id)}
                     />
                     </div>
-                    <div className={'col-xs-4'}>
+                    <div className={'col-xs-12 col-sm-6 col-md-4'}>
                         <Select 
                             title={'Год выпуска'}
                             options={car_year}
@@ -366,7 +366,7 @@ export default class Form extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-xs-4">
+                    <div className="col-xs-12 col-sm-6 col-md-4">
                         <Button 
                             disabled={Boolean(!car_id.brand || !car_id.model || !car_id.generation || isLoading)} 
                             onClick={this.handleSearch}
@@ -375,7 +375,7 @@ export default class Form extends Component {
                             Искать
                         </Button>
                     </div>
-                    <div className="col-xs-4" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div className="col-xs-12 col-sm-6 col-md-4" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         {this.renderResult()}
                     </div>
                 </div>
