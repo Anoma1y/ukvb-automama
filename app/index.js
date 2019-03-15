@@ -13,4 +13,6 @@ const render = () => {
   );
 };
 
-render();
+if (MOUNT_NODE) {
+  render();
+}
