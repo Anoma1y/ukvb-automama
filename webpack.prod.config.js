@@ -13,8 +13,8 @@ module.exports = require("./webpack.base.config")({
     path.join(process.cwd(), 'app/index.js')
   ],
   output: {
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].chunk.js'
+    filename: 'evaluation.js',
+    chunkFilename: 'evaluation.js'
   },
   optimization: {
     minimize: true,
@@ -46,24 +46,24 @@ module.exports = require("./webpack.base.config")({
     new CleanWebpackPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new MiniCssExtractPlugin({
-      filename: "style.[contenthash].css"
+      filename: "evaluation.css"
     }),
-    new HtmlWebpackPlugin({
-      template: 'public/index.html',
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: false,
-        minifyCSS: false,
-        minifyURLs: false,
-      },
-      inject: true
-    }),
+    // new HtmlWebpackPlugin({
+    //   template: 'public/index.html',
+    //   minify: {
+    //     removeComments: true,
+    //     collapseWhitespace: true,
+    //     removeRedundantAttributes: true,
+    //     useShortDoctype: true,
+    //     removeEmptyAttributes: true,
+    //     removeStyleLinkTypeAttributes: true,
+    //     keepClosingSlash: true,
+    //     minifyJS: false,
+    //     minifyCSS: false,
+    //     minifyURLs: false,
+    //   },
+    //   inject: true
+    // }),
   ],
 
   performance: {

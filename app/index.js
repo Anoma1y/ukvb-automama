@@ -4,7 +4,7 @@ import Form from './Form';
 import './index.scss';
 
 
-const MOUNT_NODE = document.querySelector('#root');
+const MOUNT_NODE = document.querySelector('#evaluation');
 
 const render = () => {
   ReactDOM.render(
