@@ -343,7 +343,7 @@ export default class Form extends Component {
         
         if (!filterResult.make || !filterResult.model || !filterResult.generation) return <div></div>;
 
-        if (searchResult.length === 0) return <div className={'evaluation-result'}><p>Не найдено</p></div>
+        if (searchResult.length === 0) return <div className={'evaluation-result'}>Не найдено</div>
 
         const averageAmount = this.calculateAverageAmount();
 
@@ -382,6 +382,7 @@ export default class Form extends Component {
                             title={'Марка'}
                             value={car_id.brand}
                             options={car_brand}
+                            required
                             onChange={this.handleBrandChange}
                             showAll={false}
                     />
@@ -392,6 +393,7 @@ export default class Form extends Component {
                             options={car_models}
                             value={car_id.model}
                             disabled={car_models.length === 0}
+                            required
                             onChange={this.handleModelChange}
                             showAll={false}
                     />
@@ -402,6 +404,7 @@ export default class Form extends Component {
                             options={car_generation}
                             value={car_id.generation}
                             disabled={car_generation.length === 0}
+                            required
                             onChange={(id) => this.handlcChangeCarID('generation', id)}
                             showAll={false}
                     />
@@ -426,6 +429,7 @@ export default class Form extends Component {
                         <Select 
                             title={'Год выпуска'}
                             options={car_year}
+                            required
                             value={car_id.year}
                             onChange={(id) => this.handlcChangeCarID('year', id)}
                     />
@@ -435,7 +439,7 @@ export default class Form extends Component {
                 <div className="row">
                     <div className="col-xs-12 col-sm-12 col-md-3">
                         <Button 
-                            disabled={Boolean(!car_id.brand || !car_id.model || !car_id.generation || isLoading)} 
+                            disabled={Boolean(!car_id.brand || !car_id.model || !car_id.generation || !car_id.year || isLoading)} 
                             onClick={this.handleSearch}
                             fullWidth
                         >Оценить</Button>                            

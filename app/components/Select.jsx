@@ -51,7 +51,8 @@ export default class Select extends Component {
             value = null,
             disabled = false,
             options = [],
-            showAll = true
+            showAll = true,
+            required = false
         } = this.props;
 
         const is = options.length !== 0 && value;
@@ -62,7 +63,7 @@ export default class Select extends Component {
             className={`select-block ${disabled ? 'select-block__disabled' : ''} ${isFocus ? 'focus' : ''} ${is ? 'added' : ''}`} 
             ref={this.handleSelectRef}
             >
-                <label>{title}</label>
+                <label>{title} {required && <span className={'select-block_label__required'}>*</span>}</label>
                 <div className="custom-select">
                     <div 
                         className="active-list" 

@@ -320,8 +320,7 @@ form {
     p, span {
       display: inline-block;
       vertical-align: middle;
-      margin-left: 10px;
-      margin-bottom: 0 !important;
+      margin: 0 0 0 10px !important;
     }
 
     p {
@@ -332,7 +331,6 @@ form {
 
     span {
       display: inline-block;
-      // margin-left: 10px;
       font-weight: 600;
       font-size: 27px;
       color: #063B6D;
@@ -362,6 +360,7 @@ form {
   cursor: pointer;
   overflow: hidden;
   margin-top: 15px;
+  margin-bottom: 15px;
   &__full-width {
     width: 100%;
   }
@@ -539,7 +538,6 @@ $error-color: #d50000;
         color: #063B6D;
         line-height: normal;
         background-color: #fafafa;
-        background-color: #fff;
         transition: all .3s ease-out;
         input[type="checkbox"] {
           margin: 0;
@@ -555,7 +553,8 @@ $error-color: #d50000;
       }
       li:hover {
         color: $active-font;
-        background-color: rgba(black, .05);
+        // background-color: rgba(black, .05);
+        background-color: #E7F2FD;
       }
     }
     .drop-down-list .add-new {
@@ -613,15 +612,19 @@ $error-color: #d50000;
 }
 
 .drop-down__active {
-  background-color: #f4f4f4 !important;
+  background-color: #E7F2FD !important;
 }
 .select-block__disabled {
   .custom-select,
   .active-list:after {
     background-color: #f9f9f9;
     border-bottom-color: #f9f9f9;
+    color: rgba(6, 59, 109, 0.25);;
   }
   label {
     color: #bbb9b9;
   }
+}
+.select-block_label__required {
+  color:#e64545;
 }
