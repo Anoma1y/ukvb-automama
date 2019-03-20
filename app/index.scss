@@ -321,6 +321,7 @@ form {
       display: inline-block;
       vertical-align: middle;
       margin-left: 10px;
+      margin-bottom: 0 !important;
     }
 
     p {
@@ -535,6 +536,7 @@ $error-color: #d50000;
         padding: $padding*.70 $padding;
         cursor: pointer;
         font-size: 14px;
+        color: #063B6D;
         line-height: normal;
         background-color: #fafafa;
         background-color: #fff;
