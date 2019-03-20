@@ -302,14 +302,49 @@ form {
 }
 
 
+.evaluation {
+  &-result {
+    margin-right: 10px;
+    
+    p, span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 14px;
+      color: #063B6D;
+    }
+
+    span {
+      display: inline-block;
+      margin-left: 10px;
+      font-weight: 600;
+      font-size: 27px;
+      color: #063B6D;
+    }
+  }
+
+  &_info {
+    margin-top: 3rem;
+    cursor: default;
+    font-weight: 600;
+    font-size: 18px;
+    color: #063B6D;
+  }
+}
+
 .material-button {
-  padding: 10px 35px;
-  font-size: 1rem;
+  padding: 13px 25px;
+  font-size: 18px;
   position: relative;
   color: #fff;
-  background: #448AFF;
+  background-color: #5CD2C6;
   border: 0;
-  box-shadow: 0px 3px 6px rgba(0,0,0,0.3);
+  font-weight: 600;
+  border-radius: 74px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.15);
   transition: all 200ms ease-in-out;
   cursor: pointer;
   overflow: hidden;
@@ -324,8 +359,11 @@ form {
       background-color: rgba(0, 0, 0, 0.12);
   }
 
-  &:hover {
-    box-shadow: 0px 6px 8px -3px rgba(0,0,0,0.3);
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px;
   }
 
   &:focus {
@@ -339,175 +377,33 @@ $form-color: #939393;
 $active-font: #3c3c3c;
 $theme-color: #2196f3;
 $error-color: #d50000;
-//contact form
+
 .material-form {
   padding: 15px;
   background-color: #fff;
-  .input-block {
-    background-color: #fff;
-    border-bottom: solid 1px #c8c8c8;
-    width: 100%;
-    height: 50px;
-    padding: 0;
-    position: relative;
-    margin-bottom: 20px;
-    // @include transition(all 0.3s ease-out);
-    &::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      width: 0%;
-      bottom: 0;
-      height: 2px;
-    //   @include transition(all 0.3s ease-out);
-      background-color: $theme-color;
-    }
-    &.focus {
-      border-color: #fff;
-      label {
-        color: $theme-color;
-        top: 0;
-        font-size: 13px;
-      }
-      &::before {
-        left: 0%;
-        width: 100%;
-      }
-    }
-    &.has-value {
-      background-color: #fff;
-      label {
-        top: 0;
-        font-size: 13px;
-      }
-    }
-    &.error {
-      border-color: #fff;
-      &::before {
-        left: 0%;
-        width: 100%;
-        background-color: $error-color;
-      }
-    }
-    &.textarea {
-      height: auto;
-      .form-control {
-        height: auto;
-        resize: none;
-        padding-top: 20px;
-        font-family: 'Roboto', sans-serif;
-      }
-    }
-    &.floating-field {
-      padding: 2px 0 0;
-      height: 62px;
-      &.textarea {
-        height: auto;
-      }
-    }
-    label {
-      position: absolute;
-      left: 0;
-      top: 29px;
-      width: 100%;
-      height: 20px;
-      margin: 0;
-      font-weight: 500;
-      z-index: 1;
-      color: $form-color;
-      font-size: 13px;
-    //   @include transition(all 0.3s ease-out);
-    transition: all .3s ease-out;
-      line-height: 16px;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-    .form-control {
-      background-color: transparent;
-      padding: 4px 0 0;
-      border: none;
-    //   @include border-radius(0);
-    //   @include box-shadow(none);
-    box-shadow: none;
-    border-radius: 0;
-      height: 100%;
-      width: 100%;
-      position: relative;
-      z-index: 2;
-      font-size: 14px;
-      font-weight: 500;
-      color: $active-font;
-    }
-    .form-control:focus {
-      outline: none;
-      label {
-        top: 0;
-      }
-    }
-  }
-  .error-label {
-    color: $error-color;
-    margin-top: -15px;
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-  .form-note {
-    font-size: 13px;
-    color: $form-color;
-    margin-top: -15px;
-    margin-bottom: 15px;
-  }
-  .square-button {
-    background-color: lighten($theme-color, 5%);
-    color: #fff;
-    font-size: 20px;
-    text-transform: uppercase;
-    font-weight: 700;
-    text-align: center;
-    // @include border-radius(0);
-    border-radius: 0;
-    transition: all .3s ease;
-    // @include transition(all 0.3s ease);
-    padding: 0;
-    height: 60px;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    &:hover,
-    &:focus {
-      background-color: darken($theme-color, 5%);
-    }
-  }
 }
-
-
-/*dropdown list as ul li method*/
 
 .select-block {
   $size: 52px;
   $padding: 15px;
-  background-color: #fff;
   width: 100%;
   padding: 12px 0 0;
   position: relative;
   margin-bottom: 20px;
-//   @include transition(all 0.3s ease-out);
-transition: all .3s ease-out;
+  transition: all .3s ease-out;
   label {
     position: absolute;
     left: 0;
     top: 32px;
     height: 20px;
     width: 100%;
-    // @include transition(all 0.3s ease-out);
-
     padding-left: 12px;
-
     transition: all .3s ease-out;
     margin: 0;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 15px;
     z-index: 1;
-    color: $form-color;
+    color: #063B6D;
     font-size: 12px;
     line-height: 10px;
     white-space: nowrap;
@@ -535,47 +431,53 @@ transition: all .3s ease-out;
       content: "▼";
       position: absolute;
       right: 0;
-      background-color: #fff;
+      background-color: #F3F8FD;
+      border-radius: 5px;
       top: 50%;
       width: 20px;
       padding-left: 5px;
       text-align: left;
       height: $size;
       line-height: $size;
-      color: $form-color;
+      color: #063B6D;
       font-size: 14px;
       margin-top: -$size/2;
     }
   }
   &.added {
     label {
-      top: 0;
-      font-size: 13px;
-      padding-left: 0;
+      display: none;
+      // top: 0;
+      // font-size: 13px;
+      // padding-left: 0;
     }
     .active-list {
-      color: $active-font;
-      font-size: 12px;
+      color: #063B6D;
+      font-size: 15px;
+      font-weight: 600;
     }
   }
   &.added.focus {
     label {
-      top: 0;
-      padding-left: 0;
+      display: none;
+      // top: 0;
+      // padding-left: 0;
+    }
+  }
+  &:hover {
+    & .custom-select,
+    & .active-list:after {
+      background-color: #E7F2FD;
     }
   }
   &.focus {
-    label {
-      top: 0;
-      font-size: 13px;
-      color: $theme-color;
-      padding-left: 0;
-    }
     .active-list {
-      font-size: 12px;
+      border: 1px solid #063B6D;
+      border-radius: 5px;
     }
-    .custom-select {
-      border-color: #fff;
+    .custom-select, 
+    .active-list:after {
+      background-color: #E7F2FD;
     }
     .active-list:after {
       content: "▲";
@@ -587,24 +489,15 @@ transition: all .3s ease-out;
     }
   }
   .custom-select {
-    border-bottom: solid 1px #c8c8c8;
     display: inline-block;
     height: $size;
     position: relative;
     padding: 0;
     width: 100%;
     line-height: $size;
-    &::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      width: 0%;
-      bottom: 0;
-      height: 2px;
-    //   @include transition(all 0.3s ease-out);
-    transition: all .3s ease-out;
-      background-color: $theme-color;
-    }
+    background-color: #F3F8FD;
+    border-radius: 5px;
+
     .list-field {
       width: 100%;
       height: $size;
@@ -632,11 +525,10 @@ transition: all .3s ease-out;
       li {
         padding: $padding*.70 $padding;
         cursor: pointer;
-        font-size: 12px;
+        font-size: 14px;
         line-height: normal;
         background-color: #fafafa;
         background-color: #fff;
-        // @include transition(all 0.3s ease-out);
         transition: all .3s ease-out;
         input[type="checkbox"] {
           margin: 0;
@@ -676,34 +568,30 @@ transition: all .3s ease-out;
   }
   .material-form {
     .input-block {
-      label {
-        font-size: 18px;
-        line-height: 14px;
-      }
       .form-control {
-        font-size: 18px;
+        // font-size: 18px;
       }
     }
   }
   .select-block {
     label {
-      font-size: 18px;
+      // font-size: 18px;
       line-height: 14px;
     }
     &.added {
       .active-list {
-        font-size: 18px;
+        // font-size: 18px;
       }
     }
     &.focus {
       .active-list {
-        font-size: 18px;
+        // font-size: 18px;
       }
     }
     .custom-select {
       .drop-down-list {
         li {
-          font-size: 15px;
+          // font-size: 15px;
         }
       }
     }

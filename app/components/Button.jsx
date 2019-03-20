@@ -4,16 +4,16 @@ export default (props) => {
     const {
         disabled = false,
         onClick,
-        fullWidth = false
+        icon = false,
+        fullWidth = false,
     } = props;
 
     return (
         <button
-            className={`material-button ${disabled ? 'material-button__disabled' : ''} ${fullWidth ? 'material-button__full-width' : ''}`}
+            type={'submit'}
+            className={`material-button ${disabled ? 'material-button__disabled' : ''} ${fullWidth ? 'material-button__full-width' : ''} ${icon ? 'material-button__icon' : ''}`}
             disabled={disabled}
             onClick={onClick}
-        >
-            {props.children}
-        </button>
+        >{props.children}</button>        
     )
 }
