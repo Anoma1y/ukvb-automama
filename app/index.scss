@@ -360,7 +360,7 @@ form {
   transition: all 200ms ease-in-out;
   cursor: pointer;
   overflow: hidden;
-
+  margin-top: 15px;
   &__full-width {
     width: 100%;
   }
@@ -401,7 +401,7 @@ $error-color: #d50000;
   width: 100%;
   padding: 12px 0 0;
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 3px;
   transition: all .3s ease-out;
   label {
     position: absolute;
