@@ -369,6 +369,9 @@ form {
       color: rgba(0, 0, 0, 0.26);
       box-shadow: none;
       background-color: rgba(0, 0, 0, 0.12);
+      &:hover {
+        color: rgba(0, 0, 0, 0.26) !important;
+      }
   }
 
   &__icon {
