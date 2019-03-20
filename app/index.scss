@@ -303,12 +303,24 @@ form {
 
 
 .evaluation {
+  &-inner {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    @media (max-width: 1023px) {
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+  }
+
   &-result {
     margin-right: 10px;
     
     p, span {
       display: inline-block;
       vertical-align: middle;
+      margin-left: 10px;
     }
 
     p {
@@ -319,7 +331,7 @@ form {
 
     span {
       display: inline-block;
-      margin-left: 10px;
+      // margin-left: 10px;
       font-weight: 600;
       font-size: 27px;
       color: #063B6D;
@@ -403,7 +415,7 @@ $error-color: #d50000;
     font-weight: 600;
     font-size: 15px;
     z-index: 1;
-    color: #063B6D;
+    color: #063b6de0;
     font-size: 12px;
     line-height: 10px;
     white-space: nowrap;
@@ -425,7 +437,6 @@ $error-color: #d50000;
     white-space: nowrap;
     overflow: hidden;
     padding-right: 20px;
-    // @include box-sizing(border-box);
     box-sizing: border-box;
     &:after {
       content: "▼";
@@ -447,9 +458,6 @@ $error-color: #d50000;
   &.added {
     label {
       display: none;
-      // top: 0;
-      // font-size: 13px;
-      // padding-left: 0;
     }
     .active-list {
       color: #063B6D;
@@ -460,11 +468,9 @@ $error-color: #d50000;
   &.added.focus {
     label {
       display: none;
-      // top: 0;
-      // padding-left: 0;
     }
   }
-  &:hover {
+  &:hover:not(&__disabled) {
     & .custom-select,
     & .active-list:after {
       background-color: #E7F2FD;

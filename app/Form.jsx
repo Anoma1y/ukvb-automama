@@ -341,13 +341,13 @@ export default class Form extends Component {
     renderResult = () => {
         const { searchResult, filterResult } = this.state;
         
-        if (!filterResult.make || !filterResult.model || !filterResult.generation) return null;
+        if (!filterResult.make || !filterResult.model || !filterResult.generation) return <div></div>;
 
         if (searchResult.length === 0) return <div className={'evaluation-result'}><p>Не найдено</p></div>
 
         const averageAmount = this.calculateAverageAmount();
 
-        if (averageAmount === '' || !averageAmount) return null;
+        if (averageAmount === '' || !averageAmount) return <div></div>;
 
         const {
             make,
@@ -433,24 +433,26 @@ export default class Form extends Component {
                 </div>
                 
                 <div className="row">
-                    <div className="col-xs-12 col-sm-6 col-md-3">
+                    <div className="col-xs-12 col-sm-12 col-md-3">
                         <Button 
                             disabled={Boolean(!car_id.brand || !car_id.model || !car_id.generation || isLoading)} 
                             onClick={this.handleSearch}
                             fullWidth
                         >Оценить</Button>                            
                     </div>
-                    <div className="col-xs-12 col-sm-6 col-md-9" style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                        {this.renderResult()}
-                        <Button 
-                            disabled={isLoading}
-                            onClick={this.handleResetForm}
-                            icon
-                        >
-                            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.54097 0C4.70169 0 0.699663 3.60474 0.0900678 8.26457C0.0728436 8.36934 0.0769581 8.47649 0.102167 8.57965C0.127375 8.68281 0.173162 8.77986 0.236805 8.86504C0.300448 8.95023 0.380647 9.02179 0.47263 9.07549C0.564614 9.12918 0.666503 9.16391 0.772238 9.1776C0.877973 9.19129 0.985394 9.18367 1.08811 9.15519C1.19083 9.1267 1.28674 9.07794 1.37015 9.0118C1.45356 8.94566 1.52275 8.8635 1.57362 8.77019C1.62449 8.67688 1.65599 8.57434 1.66625 8.46867C2.17454 4.58325 5.49284 1.58333 9.54097 1.58333C11.7409 1.58333 13.7156 2.47677 15.1531 3.91195L13.5164 5.54167L18.2869 6.33333L17.4918 1.58333L16.2759 2.79403C14.5505 1.07472 12.1721 0 9.54097 0ZM18.217 9.83089C18.02 9.82807 17.829 9.89816 17.681 10.0276C17.5329 10.157 17.4384 10.3365 17.4157 10.5313C16.9074 14.4168 13.5891 17.4167 9.54097 17.4167C7.13816 17.4167 5.00802 16.3481 3.54991 14.6737L4.77049 13.4583L0 12.6667L0.795081 17.4167L2.42407 15.7947C4.17041 17.7513 6.70735 19 9.54097 19C14.3803 19 18.3823 15.3953 18.9919 10.7354C19.008 10.6241 19.0001 10.5106 18.9687 10.4025C18.9373 10.2945 18.8831 10.1943 18.8098 10.1087C18.7365 10.0231 18.6457 9.95409 18.5435 9.90619C18.4412 9.85828 18.3299 9.83261 18.217 9.83089Z" fill="white"/>
-                            </svg>
-                        </Button>
+                    <div className="col-xs-12 col-sm-12 col-md-9">
+                        <div className={'evaluation-inner'}>
+                            {this.renderResult()}
+                            <Button 
+                                disabled={isLoading}
+                                onClick={this.handleResetForm}
+                                icon
+                            >
+                                <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.54097 0C4.70169 0 0.699663 3.60474 0.0900678 8.26457C0.0728436 8.36934 0.0769581 8.47649 0.102167 8.57965C0.127375 8.68281 0.173162 8.77986 0.236805 8.86504C0.300448 8.95023 0.380647 9.02179 0.47263 9.07549C0.564614 9.12918 0.666503 9.16391 0.772238 9.1776C0.877973 9.19129 0.985394 9.18367 1.08811 9.15519C1.19083 9.1267 1.28674 9.07794 1.37015 9.0118C1.45356 8.94566 1.52275 8.8635 1.57362 8.77019C1.62449 8.67688 1.65599 8.57434 1.66625 8.46867C2.17454 4.58325 5.49284 1.58333 9.54097 1.58333C11.7409 1.58333 13.7156 2.47677 15.1531 3.91195L13.5164 5.54167L18.2869 6.33333L17.4918 1.58333L16.2759 2.79403C14.5505 1.07472 12.1721 0 9.54097 0ZM18.217 9.83089C18.02 9.82807 17.829 9.89816 17.681 10.0276C17.5329 10.157 17.4384 10.3365 17.4157 10.5313C16.9074 14.4168 13.5891 17.4167 9.54097 17.4167C7.13816 17.4167 5.00802 16.3481 3.54991 14.6737L4.77049 13.4583L0 12.6667L0.795081 17.4167L2.42407 15.7947C4.17041 17.7513 6.70735 19 9.54097 19C14.3803 19 18.3823 15.3953 18.9919 10.7354C19.008 10.6241 19.0001 10.5106 18.9687 10.4025C18.9373 10.2945 18.8831 10.1943 18.8098 10.1087C18.7365 10.0231 18.6457 9.95409 18.5435 9.90619C18.4412 9.85828 18.3299 9.83261 18.217 9.83089Z" fill="white"/>
+                                </svg>
+                            </Button>
+                        </div>
                     </div>
                 </div>
                 
