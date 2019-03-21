@@ -304,32 +304,27 @@ export default class Form extends Component {
 
     handleRequestButton = () => {
         const url = "https://carbucks.ru/online-zayavka-na-ocenku";
-        const hasNoResult = this.checkHasNoResult();
 
-        if (hasNoResult) {
+        const {
+            filterResult: {
+                make,
+                model,
+                generation
+            },
+            car_id
+        } = this.state;
+
+        if (!make || !model || !generation) {
             document.location.href = url;
-        } else {
-            const {
-                filterResult: {
-                    make,
-                    model,
-                    generation
-                },
-                car_id
-            } = this.state;
-            const year = car_id.year ? car_id.year : '';
-
-            const carName = `${make.text} ${model.text} (${generation.text})`;
-            const queryUrl = `${url}/?text-73=${carName}&number-162=${year}`;
-
-            document.location.href = queryUrl;
+            return;
         }
-    }
 
-    checkHasNoResult = () => {
-        const { searchResult, filterResult } = this.state;
+        const year = car_id.year ? car_id.year : '';
 
-        return searchResult.length === 0 || !filterResult.make || !filterResult.model || !filterResult.generation;
+        const carName = `${make.text} ${model.text} (${generation.text})`;
+        const queryUrl = `${url}/?text-73=${carName}&number-162=${year}`;
+
+        document.location.href = queryUrl;
     }
 
     renderRuble = () => (
@@ -374,7 +369,6 @@ export default class Form extends Component {
             filterResult,
             isLoading
         } = this.state;
-        const hasNoResult = this.checkHasNoResult();
 
         return (
             <form action='#' onSubmit={(e) => e.preventDefault()}>
