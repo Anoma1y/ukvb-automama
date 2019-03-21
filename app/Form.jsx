@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
 import Select from './components/Select';
@@ -370,6 +370,8 @@ export default class Form extends Component {
             car_id,
             car_models,
             car_generation,
+            searchResult,
+            filterResult,
             isLoading
         } = this.state;
         const hasNoResult = this.checkHasNoResult();
@@ -460,33 +462,39 @@ export default class Form extends Component {
                     </div>
                 </div>
                 
-                <div className="row">
-                    <div className="col-xs-12 col-sm-10 col-md-9">
-                        <p className={'evaluation_info'}>
-                            {
-                                hasNoResult 
-                                    ? 'К сожалению, введенных Вами данных недостаточно для предварительной оценки. Мы рады уточнить информацию по телефону и/или e-mail' 
-                                    : 'Вы можете узнать более точную стоимость оценки, связавшись с нами по телефону или оставив заявку на оценку'
-                            }
-                        </p>
-                    </div>
-                </div>
+                {
+                    (filterResult.make || filterResult.model || filterResult.generation) && (
+                        <Fragment>
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-10 col-md-9">
+                                    <p className={'evaluation_info'}>
+                                        {
+                                            searchResult.length === 0  
+                                                ? 'К сожалению, введенных Вами данных недостаточно для предварительной оценки. Мы рады уточнить информацию по телефону и/или e-mail' 
+                                                : 'Вы можете узнать более точную стоимость оценки, связавшись с нами по телефону или оставив заявку на оценку'
+                                        }
+                                    </p>
+                                </div>
+                            </div>
 
-                <div className="row">
-                    <div className="col-xs-12 col-sm-6 col-md-4">
-                        <Button 
-                            disabled={isLoading}
-                            onClick={this.handleRequestButton}
-                            fullWidth
-                        >
-                            {
-                                hasNoResult 
-                                    ? 'Оставить заявку' 
-                                    : 'Оставить заявку на оценку'
-                                }
-                        </Button>
-                    </div>
-                </div>
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-6 col-md-4">
+                                    <Button 
+                                    disabled={isLoading}
+                                    onClick={this.handleRequestButton}
+                                    fullWidth
+                                    >
+                                        {
+                                            searchResult.length === 0 
+                                                ? 'Оставить заявку' 
+                                                : 'Оставить заявку на оценку'
+                                            }
+                                    </Button>
+                                </div>
+                            </div>
+                        </Fragment>
+                    )
+                }
 
             </form>
         )
