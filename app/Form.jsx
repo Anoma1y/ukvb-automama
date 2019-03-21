@@ -481,7 +481,7 @@ export default class Form extends Component {
                                         {
                                             searchResult.length === 0 
                                                 ? 'Оставить заявку' 
-                                                : 'Оставив заявку на оценку'
+                                                : 'Оставить заявку на оценку'
                                             }
                                     </Button>
                                 </div>
